@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Spoiler Blocker for GTA VI",
+  "version": "0.1.0",
+  "description": "Blurs GTA VI spoilers on YouTube, X and Reddit. Open source, no tracking.",
+  "permissions": ["storage"],
+  "host_permissions": ["*://*.youtube.com/*", "*://*.x.com/*", "*://*.twitter.com/*", "*://*.reddit.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*", "*://*.x.com/*", "*://*.twitter.com/*", "*://*.reddit.com/*"],
+      "js": ["content/content.js"],
+      "css": ["content/blocker.css"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Spoiler Blocker for GTA VI"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "gta6-spoiler-blocker@extension",
+      "strict_min_version": "128.0",
+      "data_collection_permissions": { "required": ["none"] }
+    }
+  }
+}
