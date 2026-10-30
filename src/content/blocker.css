@@ -1,1 +1,26 @@
-/* Styles for blurred / hidden items. Owner: Claude */
+/* Blur mode: blur all item children except the overlay. */
+[data-gsb='blocked'][data-gsb-action='blur'] {
+  position: relative !important;
+  isolation: isolate !important; /* Scope overlay z-index to the item, below sticky site headers. */
+  overflow: clip !important; /* Clip the blur halo to the item bounds. */
+}
+
+[data-gsb='blocked'][data-gsb-action='blur'] > :not(gsb-overlay) {
+  filter: blur(20px) saturate(0.7) !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+/* Hide mode. */
+[data-gsb='blocked'][data-gsb-action='hide'] {
+  display: none !important;
+}
+
+/* Overlay host. Content and styles are rendered in its shadow root (see blocker.ts). */
+gsb-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1000 !important;
+  display: block !important;
+  min-height: 40px !important;
+}

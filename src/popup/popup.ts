@@ -1,11 +1,12 @@
-// Popup logic.
-// Owner: YOU (your first task) - Claude prepares popup.html/css and a task description.
-//
-// What it will do:
-// - read settings + stats from storage and show them
-// - on/off switch, mode (Strict / Spoilers only), action (Blur / Hide)
-// - on/off for the current site
-// - live "spoilers blocked" counter
-// - donate message after 100 blocked items
+/**
+ * Popup controller.
+ *
+ * TODO:
+ * - Render settings and stats from storage.
+ * - Global toggle, mode (strict / spoilers), action (blur / hide).
+ * - Per-site toggle for the active tab.
+ * - Live blocked-item counter.
+ * - One-time donation prompt after NUDGE_THRESHOLD blocked items.
+ */
 
 export {};

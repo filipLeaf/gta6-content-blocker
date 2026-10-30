@@ -1,4 +1,4 @@
-// Shared types used across the whole extension.
+/** Shared domain types. */
 
 export type Mode = 'strict' | 'spoilers';
 export type Action = 'blur' | 'hide';
@@ -7,9 +7,12 @@ export interface Settings {
   enabled: boolean;
   mode: Mode;
   action: Action;
-  disabledSites: string[]; // site ids, e.g. ['reddit']
-  customTerms: string[]; // always blocked, in every mode
-  whitelistTerms: string[]; // never blocked
+  /** Site ids (see `SITES`) where blocking is disabled. */
+  disabledSites: string[];
+  /** User-defined terms that are blocked regardless of mode. */
+  customTerms: string[];
+  /** User-defined terms that are never blocked. Takes precedence over all other lists. */
+  whitelistTerms: string[];
 }
 
 export interface Stats {
@@ -18,17 +21,23 @@ export interface Stats {
 }
 
 export interface TermLists {
-  context: string[]; // clearly GTA VI ("gta 6", "vice city") - one is enough
-  weak: string[]; // common words ("jason", "lucia") - need two different ones
-  spoiler: string[]; // used in "spoilers" mode ("ending", "final mission")
+  /** Unambiguous GTA VI references. A single hit is sufficient. */
+  context: string[];
+  /** Ambiguous terms (e.g. character first names). Require two distinct hits. */
+  weak: string[];
+  /** Spoiler indicators. Required in addition to a GTA VI reference in `spoilers` mode. */
+  spoiler: string[];
 }
 
 export interface Site {
   id: string;
   name: string;
-  hosts: string[]; // matches the domain and its subdomains
-  items: string[]; // CSS selectors of elements to check and blur
-  attrs: string[]; // extra attributes on the item whose text is checked
+  /** Registrable domains. Subdomains are matched implicitly. */
+  hosts: string[];
+  /** Selectors for content units that are evaluated and blocked as a whole. */
+  items: string[];
+  /** Attributes on the item element whose values are included in the evaluated text. */
+  attrs: string[];
 }
 
 export type MatchResult = { reason: 'custom' | 'gta' | 'spoiler' } | null;

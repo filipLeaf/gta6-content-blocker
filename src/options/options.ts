@@ -1,4 +1,7 @@
-// Options page: edit custom keywords and the whitelist, choose sites, reset.
-// Owner: YOU (later task)
+/**
+ * Options page controller.
+ *
+ * TODO: Edit custom and whitelist terms, toggle sites, reset to defaults.
+ */
 
 export {};
