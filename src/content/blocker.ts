@@ -56,8 +56,18 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
 
   // ---------- Item inspection ----------
 
+  /**
+   * Collects the item's text with a space between text nodes. `textContent` concatenates
+   * adjacent elements without a separator (badge "New" + title "GTA 6" -> "NewGTA 6"),
+   * which defeats whole-word matching.
+   */
   function getText(el: Element): string {
-    let text = el.textContent ?? '';
+    const parts: string[] = [];
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      if (node.nodeValue) parts.push(node.nodeValue);
+    }
+    let text = parts.join(' ');
     for (const attr of site.attrs) {
       const value = el.getAttribute(attr);
       if (value) text += ` ${value}`;
