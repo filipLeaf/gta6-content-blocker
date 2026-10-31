@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Spoiler Blocker for GTA VI",
+  "name": "Content Blocker for GTA 6",
   "version": "0.1.0",
-  "description": "Blurs GTA VI spoilers on YouTube, X and Reddit. Open source, no tracking.",
+  "description": "Blurs or hides GTA 6 content and spoilers on YouTube, X and Reddit. Open source, no tracking.",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
@@ -25,7 +25,7 @@
       "16": "icons/icon16.png",
       "32": "icons/icon32.png"
     },
-    "default_title": "Spoiler Blocker for GTA VI"
+    "default_title": "Content Blocker for GTA 6"
   },
   "options_ui": {
     "page": "options/options.html",
@@ -33,7 +33,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "gta6-spoiler-blocker@extension",
+      "id": "gta6-content-blocker@extension",
       "strict_min_version": "128.0",
       "data_collection_permissions": { "required": ["none"] }
     }

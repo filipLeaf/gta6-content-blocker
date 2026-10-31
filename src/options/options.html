@@ -1,1 +1,44 @@
-<!-- Options page. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Content Blocker for GTA 6 – Options</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="head">
+        <img class="logo" src="../icons/icon128.png" alt="" width="48" height="48" />
+        <div>
+          <h1>Content Blocker for GTA 6</h1>
+          <p class="sub">Options · changes are saved automatically</p>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>Blocked words</h2>
+        <p class="hint">Always blocked, in every mode. Add character or mission names you want to avoid.</p>
+        <form class="add-row" id="custom-form">
+          <label class="visually-hidden" for="custom-input">Word or phrase to block</label>
+          <input type="text" id="custom-input" placeholder="e.g. final heist" autocomplete="off" />
+          <button type="submit" id="custom-add">Add</button>
+        </form>
+        <ul class="terms" id="custom-list"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Never block</h2>
+        <p class="hint">Content containing these words is never blocked. Useful for things like official trailers.</p>
+        <form class="add-row" id="whitelist-form">
+          <label class="visually-hidden" for="whitelist-input">Word or phrase to allow</label>
+          <input type="text" id="whitelist-input" placeholder="e.g. official trailer" autocomplete="off" />
+          <button type="submit" id="whitelist-add">Add</button>
+        </form>
+        <ul class="terms" id="whitelist-list"></ul>
+      </section>
+    </main>
+
+    <script src="options.js"></script>
+  </body>
+</html>

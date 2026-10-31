@@ -8,7 +8,7 @@ import { getSettings, getStats, setSettings, setStats } from '../shared/storage.
 import { SITES, findSite } from '../content/sites.ts';
 
 const MODE_HINTS: Record<Mode, string> = {
-  strict: 'Hides everything about GTA VI. Safest.',
+  strict: 'Hides everything about GTA 6. Safest.',
   spoilers: 'Only hides posts that look like story spoilers.',
 };
 

@@ -1,6 +1,6 @@
-# Spoiler Blocker for GTA VI
+# Content Blocker for GTA 6
 
-Browser extension that blurs GTA VI spoilers on YouTube, X and Reddit. Open source, no tracking.
+Browser extension that blurs or hides GTA 6 content and spoilers on YouTube, X and Reddit. Open source, no tracking.
 
 > 🚧 Work in progress. Full README coming before release.
 

@@ -1,6 +1,7 @@
-# Spoiler Blocker for GTA VI — CLAUDE.md
+# Content Blocker for GTA 6 — CLAUDE.md
 
-An open-source browser extension that blurs / hides GTA VI spoilers on popular websites.
+An open-source browser extension that blurs / hides GTA 6 content and spoilers on popular websites.
+Public name: **Content Blocker for GTA 6** ("for", not "GTA 6 …" first, to avoid implying affiliation with Rockstar).
 Small side project: simplicity and shipping fast beat features. Launch target is before the game's release (2026-11-19).
 
 **Language: everything in this repo is in English** — code, comments, UI, README, store listings, commit messages.
@@ -74,12 +75,12 @@ dist/                 # build output, load this in the browser (gitignored)
 - Only the outermost item counts when items are nested (quoted tweets).
 - Skip items whose text hasn't changed since the last check. Re-check when it changes (sites reuse elements).
 - Blocked item: `data-gsb="blocked"` + `data-gsb-action="blur|hide"`, styled by `blocker.css`.
-- Blur mode adds an overlay ("Possible GTA VI spoiler — Show anyway") inside a closed shadow root: page CSS can't break it and its text is not part of the item's `textContent`. Never show the matched term (it could be a spoiler itself).
+- Blur mode adds an overlay ("GTA 6 content hidden — Show anyway") inside a closed shadow root: page CSS can't break it and its text is not part of the item's `textContent`. Never show the matched term (it could be a spoiler itself).
 - Videos inside blocked items are paused and muted.
 - Each newly blocked item adds +1 to the counter (batched writes).
 
 ### Popup
-- On/off (global + current site), mode, action, "N spoilers blocked" counter, donate + GitHub links.
+- On/off (global + current site), mode, action, "N content blocked" counter, donate + GitHub links.
 - A one-time, dismissible donate message after 100 blocked items. **Never** show donation prompts on websites or via notifications.
 
 ## Commands

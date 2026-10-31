@@ -187,7 +187,7 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
     dot.className = 'dot';
     const label = document.createElement('span');
     label.className = 'label';
-    label.append(dot, 'Possible GTA VI spoiler');
+    label.append(dot, 'GTA 6 content hidden');
 
     const button = document.createElement('button');
     button.type = 'button';

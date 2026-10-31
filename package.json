@@ -2,7 +2,7 @@
   "name": "gta6-spoiler-blocker",
   "version": "0.1.0",
   "private": true,
-  "description": "Browser extension that blurs GTA VI spoilers on YouTube, X and Reddit.",
+  "description": "Browser extension that blurs or hides GTA 6 content on YouTube, X and Reddit.",
   "license": "MIT",
   "type": "module",
   "scripts": {
