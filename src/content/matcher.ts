@@ -37,6 +37,14 @@ function compile(terms: readonly string[] | undefined): RegExp | null {
   return new RegExp(`(?<=^| )(${parts.join('|')})(?= |$)`, 'g');
 }
 
+/** Compiles single-word prefixes; a match spans the rest of the word ("gta6" → "gta6news"). */
+function compilePrefixes(prefixes: readonly string[] | undefined): RegExp | null {
+  const parts = [...new Set((prefixes ?? []).map(normalize).filter((p) => p && !p.includes(' ')))]
+    .map(escapeRegExp);
+  if (parts.length === 0) return null;
+  return new RegExp(`(?<=^| )(?:${parts.join('|')})[\\p{L}\\p{N}]*(?= |$)`, 'gu');
+}
+
 function hasMatch(re: RegExp | null, text: string): boolean {
   if (!re) return false;
   re.lastIndex = 0; // Reset state carried over by the global flag.
@@ -50,7 +58,7 @@ function countDistinct(re: RegExp | null, text: string): number {
 
 /**
  * Builds a matcher for the given settings. Precedence:
- * whitelist → custom terms → GTA VI reference (context term, or ≥2 distinct weak terms)
+ * whitelist → custom terms → GTA VI reference (context term, context prefix, or ≥2 distinct weak terms)
  * → spoiler term (`spoilers` mode only).
  */
 export function createMatcher(
@@ -58,6 +66,7 @@ export function createMatcher(
   terms: TermLists = DEFAULT_TERMS,
 ): Matcher {
   const context = compile(terms.context);
+  const contextPrefixes = compilePrefixes(terms.contextPrefixes);
   const weak = compile(terms.weak);
   const spoiler = compile(terms.spoiler);
   const custom = compile(settings.customTerms);
@@ -70,7 +79,8 @@ export function createMatcher(
     if (hasMatch(whitelist, text)) return null;
     if (hasMatch(custom, text)) return { reason: 'custom' };
 
-    const isGta = hasMatch(context, text) || countDistinct(weak, text) >= 2;
+    const isGta =
+      hasMatch(context, text) || hasMatch(contextPrefixes, text) || countDistinct(weak, text) >= 2;
     if (!isGta) return null;
     if (!spoilersOnly) return { reason: 'gta' };
     return hasMatch(spoiler, text) ? { reason: 'spoiler' } : null;

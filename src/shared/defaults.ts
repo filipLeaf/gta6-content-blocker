@@ -30,6 +30,7 @@ export const DEFAULT_TERMS: TermLists = {
     'jason duval', 'lucia caminos', 'cal hampton', 'boobie ike', 'dre quan priest',
     'real dimez', 'raul bautista', 'brian heder',
   ],
+  contextPrefixes: ['gta6', 'gtavi'],
   weak: ['jason', 'lucia', 'duval', 'caminos', 'ambrosia', 'kalaga'],
   spoiler: [
     'spoiler', 'spoilers', 'spoil', 'spoiled',

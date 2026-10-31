@@ -30,6 +30,20 @@ test('strict mode catches the common ways people write GTA VI', () => {
   }
 });
 
+test('context prefixes catch subreddit names and hashtags', () => {
+  for (const text of [
+    'r/GTA6unmoderated Props to Rockstar for making the game so realistic',
+    'Posted in r/GTA6News',
+    '#GTA6Trailer3 is coming',
+    'r/GTAVIleaks',
+  ]) {
+    assert.ok(strict(text), `should block: ${text}`);
+  }
+  for (const text of ['r/GTA5mods new update', 'xgta6 is not a prefix match', 'gta 5 vi']) {
+    assert.equal(strict(text), null, `should not block: ${text}`);
+  }
+});
+
 test('strict mode blocks two different weak terms together', () => {
   assert.ok(strict('Jason and Lucia finally meet'));
 });

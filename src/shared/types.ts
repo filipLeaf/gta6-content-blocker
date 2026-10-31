@@ -23,6 +23,11 @@ export interface Stats {
 export interface TermLists {
   /** Unambiguous GTA VI references. A single hit is sufficient. */
   context: string[];
+  /**
+   * Single-token prefixes that identify GTA VI when a word starts with them
+   * (subreddit names, hashtags: "gta6unmoderated", "gta6trailer"). Matched within one word only.
+   */
+  contextPrefixes: string[];
   /** Ambiguous terms (e.g. character first names). Require two distinct hits. */
   weak: string[];
   /** Spoiler indicators. Required in addition to a GTA VI reference in `spoilers` mode. */
