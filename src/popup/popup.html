@@ -1,1 +1,72 @@
-<!-- Popup. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Spoiler Blocker for GTA VI</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="head">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="title">
+          <h1>Spoiler Blocker</h1>
+          <p>for GTA VI</p>
+        </div>
+        <label class="switch" title="Toggle protection">
+          <input type="checkbox" id="enabled" aria-label="Protection" />
+          <span class="track"></span>
+        </label>
+      </header>
+
+      <section class="hero">
+        <div class="count" id="count">0</div>
+        <div class="count-label">spoilers blocked</div>
+        <div class="status" id="status"></div>
+      </section>
+
+      <section class="nudge" id="nudge" hidden>
+        <button class="close" id="nudge-close" type="button" aria-label="Dismiss">×</button>
+        <p><strong>100+ spoilers dodged 🎉</strong></p>
+        <p>If this saved your playthrough, a coffee helps keep the keyword lists up to date after launch.</p>
+        <a class="btn" id="nudge-donate" target="_blank" rel="noopener">☕ Buy me a coffee</a>
+      </section>
+
+      <section class="group">
+        <h2>Mode</h2>
+        <div class="seg">
+          <input type="radio" name="mode" id="mode-strict" value="strict" />
+          <label for="mode-strict">Strict</label>
+          <input type="radio" name="mode" id="mode-spoilers" value="spoilers" />
+          <label for="mode-spoilers">Spoilers only</label>
+        </div>
+        <p class="hint" id="mode-hint"></p>
+      </section>
+
+      <section class="group">
+        <h2>When found</h2>
+        <div class="seg">
+          <input type="radio" name="action" id="action-blur" value="blur" />
+          <label for="action-blur">Blur</label>
+          <input type="radio" name="action" id="action-hide" value="hide" />
+          <label for="action-hide">Hide</label>
+        </div>
+      </section>
+
+      <section class="site-row" id="site-row" hidden>
+        <span id="site-label"></span>
+        <label class="switch small">
+          <input type="checkbox" id="site-enabled" aria-label="Active on this site" />
+          <span class="track"></span>
+        </label>
+      </section>
+
+      <footer class="foot">
+        <a id="donate" target="_blank" rel="noopener">☕ Buy me a coffee</a>
+        <a id="repo" target="_blank" rel="noopener">GitHub</a>
+      </footer>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
