@@ -1,11 +1,9 @@
-/** Default settings, term lists and external links. */
 import type { Settings, Stats, TermLists } from './types.ts';
 
 // TODO: Set the real Buy Me a Coffee URL before release.
 export const DONATE_URL = 'https://buymeacoffee.com/BMC_USER';
 export const REPO_URL = 'https://github.com/filipLeaf/gta6-content-blocker';
 
-/** Blocked-item count after which the one-time donation prompt is shown. */
 export const NUDGE_THRESHOLD = 100;
 
 export const DEFAULT_SETTINGS: Settings = {

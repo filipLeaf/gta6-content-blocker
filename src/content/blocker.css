@@ -1,8 +1,7 @@
-/* Blur mode: blur all item children except the overlay. */
 [data-gsb='blocked'][data-gsb-action='blur'] {
   position: relative !important;
-  isolation: isolate !important; /* Scope overlay z-index to the item, below sticky site headers. */
-  overflow: clip !important; /* Clip the blur halo to the item bounds. */
+  isolation: isolate !important; /* keep the overlay under sticky site headers */
+  overflow: clip !important;
 }
 
 [data-gsb='blocked'][data-gsb-action='blur'] > :not(gsb-overlay) {
@@ -11,12 +10,10 @@
   user-select: none !important;
 }
 
-/* Hide mode. */
 [data-gsb='blocked'][data-gsb-action='hide'] {
   display: none !important;
 }
 
-/* Overlay host. Content and styles are rendered in its shadow root (see blocker.ts). */
 gsb-overlay {
   position: absolute !important;
   inset: 0 !important;

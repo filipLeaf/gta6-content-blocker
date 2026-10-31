@@ -1,7 +1,3 @@
-/**
- * Content script entry point. Resolves the current site, starts the blocker
- * and propagates settings changes made elsewhere (e.g. in the popup).
- */
 import type { Settings } from '../shared/types.ts';
 import { DEFAULT_SETTINGS } from '../shared/defaults.ts';
 import { getSettings } from '../shared/storage.ts';
@@ -20,7 +16,6 @@ async function main(): Promise<void> {
     const next: Settings = { ...settings };
     for (const key of Object.keys(DEFAULT_SETTINGS) as (keyof Settings)[]) {
       const change = changes[key];
-      // A removed key (newValue undefined) falls back to its default.
       if (change) Object.assign(next, { [key]: change.newValue ?? DEFAULT_SETTINGS[key] });
     }
     settings = next;

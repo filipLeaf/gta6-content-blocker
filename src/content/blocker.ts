@@ -1,7 +1,3 @@
-/**
- * DOM layer: locates site items, classifies them via the matcher and applies blur/hide.
- * Reacts to DOM mutations to cover infinite scroll and SPA navigation.
- */
 import type { Settings, Site } from '../shared/types.ts';
 import { DEFAULT_SETTINGS } from '../shared/defaults.ts';
 import { addBlocked } from '../shared/storage.ts';
@@ -11,7 +7,6 @@ const STATE_ATTR = 'data-gsb'; // 'blocked' | 'revealed'
 const ACTION_ATTR = 'data-gsb-action'; // 'blur' | 'hide'
 const OVERLAY_TAG = 'gsb-overlay';
 
-/** Overlay styles, scoped to the overlay's shadow root and isolated from page CSS. */
 const OVERLAY_CSS = `
   .box {
     position: absolute; inset: 0;
@@ -48,24 +43,14 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
   let settings: Settings = DEFAULT_SETTINGS;
   let match: Matcher = () => null;
   let active = false;
-  /** Text of each item at its last evaluation; unchanged items are skipped. */
   let lastText = new WeakMap<Element, string>();
-  /** Content key captured when the user revealed an item. */
   const revealedKey = new WeakMap<Element, string>();
   const watchedForPlay = new WeakSet<Element>();
-  /**
-   * Content already counted on this page. Prevents re-renders, element recycling and
-   * settings changes from inflating the blocked counter.
-   */
+  // Keys of items already counted on this page, so re-renders don't inflate the counter.
   const counted = new Set<string>();
 
-  // ---------- Item inspection ----------
-
-  /**
-   * Collects the item's text with a space between text nodes. `textContent` concatenates
-   * adjacent elements without a separator (badge "New" + title "GTA 6" -> "NewGTA 6"),
-   * which defeats whole-word matching.
-   */
+  // textContent glues adjacent elements together ("New" + "GTA 6" -> "NewGTA 6"),
+  // so join text nodes with spaces instead.
   function getText(el: Element): string {
     const parts: string[] = [];
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
@@ -80,15 +65,11 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
     return text;
   }
 
-  /**
-   * Identifies the content an item currently renders. Sites recycle elements across
-   * navigations (notably YouTube), so a changed key means a revealed item must be re-evaluated.
-   */
+  // YouTube reuses elements for different videos; the first link tells them apart.
   function contentKey(el: Element): string {
     return el.querySelector('a[href]')?.getAttribute('href') ?? '';
   }
 
-  /** Resolves nested items (e.g. quoted tweets) to the outermost item. */
   function outermost(el: Element): Element {
     let current = el;
     let parent = current.parentElement?.closest(itemSelector);
@@ -99,14 +80,12 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
     return current;
   }
 
-  // ---------- Evaluation ----------
-
   function evaluate(el: Element): void {
     const text = getText(el);
     const state = el.getAttribute(STATE_ATTR);
 
     if (lastText.get(el) === text) {
-      // Framework re-renders may detach the overlay; restore it.
+      // React re-renders can remove the overlay.
       if (state === 'blocked' && settings.action === 'blur') ensureOverlay(el);
       return;
     }
@@ -119,7 +98,6 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
     }
     if (state === 'revealed' && revealedKey.get(el) === contentKey(el)) return;
     block(el);
-    // Items without a link (e.g. comments) fall back to a text prefix as their identity.
     countBlocked(contentKey(el) || text.slice(0, 200));
   }
 
@@ -145,8 +123,6 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
     removeOverlay(el);
   }
 
-  // ---------- Media ----------
-
   function pauseMedia(el: Element): void {
     for (const video of el.querySelectorAll('video')) {
       video.muted = true;
@@ -154,7 +130,7 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
     }
     if (watchedForPlay.has(el)) return;
     watchedForPlay.add(el);
-    // Sites resume autoplay on scroll; suppress playback while the item is blocked.
+    // Sites restart autoplay on scroll.
     el.addEventListener(
       'play',
       (event) => {
@@ -167,18 +143,13 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
     );
   }
 
-  // ---------- Overlay ----------
-
   function findOverlay(el: Element): Element | null {
     for (const child of el.children) if (child.localName === OVERLAY_TAG) return child;
     return null;
   }
 
-  /**
-   * Attaches the "Show anyway" overlay. A closed shadow root isolates it from page CSS and
-   * keeps its label out of `item.textContent`, so the overlay never matches itself.
-   * The matched term is intentionally not displayed, as it may itself be a spoiler.
-   */
+  // Shadow root: page CSS can't touch it and its label isn't part of the item's text.
+  // Don't show the matched word, it could be a spoiler itself.
   function ensureOverlay(el: Element): void {
     if (findOverlay(el)) return;
 
@@ -204,7 +175,7 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
     box.append(label, button);
     shadow.append(style, box);
 
-    // Swallow pointer events so the underlying link or post handler is not triggered.
+    // Don't open the video/post underneath.
     for (const type of ['click', 'auxclick', 'mousedown', 'mouseup', 'pointerdown', 'pointerup']) {
       host.addEventListener(type, (event) => {
         event.stopPropagation();
@@ -218,8 +189,6 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
   function removeOverlay(el: Element): void {
     findOverlay(el)?.remove();
   }
-
-  // ---------- Counter ----------
 
   let pendingCount = 0;
   let counterTimer: ReturnType<typeof setTimeout> | undefined;
@@ -235,11 +204,9 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
     counterTimer = undefined;
     const count = pendingCount;
     pendingCount = 0;
-    // Rejects once the extension context is invalidated (e.g. after an update); safe to ignore.
+    // Fails after the extension is reloaded; nothing to do.
     if (count) addBlocked(count).catch(() => {});
   }
-
-  // ---------- Mutation handling ----------
 
   const queue = new Set<Node>();
   let scheduled = false;
@@ -247,7 +214,7 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
   function schedule(): void {
     if (scheduled) return;
     scheduled = true;
-    // Batch per frame; rAF runs before paint, so new items are blocked before first render.
+    // rAF runs before paint, so new items never show up unblurred.
     requestAnimationFrame(flush);
   }
 

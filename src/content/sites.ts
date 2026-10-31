@@ -1,8 +1,3 @@
-/**
- * Per-site selector configuration. Single source of truth for site markup;
- * markup changes on supported sites should only require edits here.
- * When item selectors nest, only the outermost match is evaluated.
- */
 import type { Site } from '../shared/types.ts';
 
 export const SITES: Site[] = [
@@ -50,7 +45,7 @@ export const SITES: Site[] = [
         items: [
       // New Reddit
       'shreddit-post',
-      'shreddit-comment > [slot="comment"]', // Body only; nested replies are evaluated separately.
+      'shreddit-comment > [slot="comment"]', // body only, replies are checked separately
       // Search results and server-driven post units
       '[data-testid="search-post-with-content-preview"]',
       '[data-testid="sdui-post-unit"]',
@@ -62,7 +57,6 @@ export const SITES: Site[] = [
   },
 ];
 
-/** Resolves a hostname to its site config; matches the registrable domain and any subdomain. */
 export function findSite(hostname: string): Site | null {
   const host = hostname.toLowerCase();
   return SITES.find((site) => site.hosts.some((h) => host === h || host.endsWith(`.${h}`))) ?? null;

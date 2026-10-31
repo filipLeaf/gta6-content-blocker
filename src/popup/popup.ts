@@ -1,7 +1,3 @@
-/**
- * Popup controller: renders settings and stats, and persists user changes.
- * Content scripts apply changes live via `chrome.storage.onChanged`.
- */
 import type { Action, Mode, Settings, Site, Stats } from '../shared/types.ts';
 import { DONATE_URL, NUDGE_THRESHOLD, REPO_URL } from '../shared/defaults.ts';
 import { getSettings, getStats, setSettings, setStats } from '../shared/storage.ts';
@@ -12,7 +8,6 @@ const MODE_HINTS: Record<Mode, string> = {
   spoilers: 'Only hides posts that look like story spoilers.',
 };
 
-/** Typed `querySelector` that fails loudly if the popup markup and code drift apart. */
 function $<T extends Element = HTMLElement>(selector: string): T {
   const el = document.querySelector<T>(selector);
   if (!el) throw new Error(`Popup element not found: ${selector}`);
@@ -40,17 +35,14 @@ const ui = {
   repo: $<HTMLAnchorElement>('#repo'),
 };
 
-/**
- * Returns the supported site open in the active tab, if any.
- * `tab.url` is only exposed for hosts covered by `host_permissions`, which is exactly the supported set.
- */
+// tab.url is only available for hosts in host_permissions, i.e. supported sites.
 async function getActiveSite(): Promise<Site | null> {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!tab?.url) return null;
   try {
     return findSite(new URL(tab.url).hostname);
   } catch {
-    return null; // Non-standard URLs (e.g. about:, chrome:).
+    return null;
   }
 }
 
@@ -93,14 +85,12 @@ async function main(): Promise<void> {
     ui.nudge.hidden = stats.nudgeDismissed || stats.blockedTotal < NUDGE_THRESHOLD;
   }
 
-  /** Applies a settings change optimistically, then persists it. */
   function updateSettings(patch: Partial<Settings>): void {
     settings = { ...settings, ...patch };
     renderSettings();
     void setSettings(patch);
   }
 
-  // Event wiring
   ui.enabled.addEventListener('change', () => updateSettings({ enabled: ui.enabled.checked }));
 
   for (const radio of ui.modeRadios) {
@@ -122,7 +112,6 @@ async function main(): Promise<void> {
     void setStats({ nudgeDismissed: true });
   });
 
-  // Keep the counter live while content scripts block items in the background.
   chrome.storage.onChanged.addListener((changes, area) => {
     const total = changes['blockedTotal'];
     if (area !== 'local' || !total) return;

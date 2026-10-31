@@ -1,5 +1,3 @@
-/** Shared domain types. */
-
 export type Mode = 'strict' | 'spoilers';
 export type Action = 'blur' | 'hide';
 
@@ -7,11 +5,8 @@ export interface Settings {
   enabled: boolean;
   mode: Mode;
   action: Action;
-  /** Site ids (see `SITES`) where blocking is disabled. */
   disabledSites: string[];
-  /** User-defined terms that are blocked regardless of mode. */
   customTerms: string[];
-  /** User-defined terms that are never blocked. Takes precedence over all other lists. */
   whitelistTerms: string[];
 }
 
@@ -21,27 +16,19 @@ export interface Stats {
 }
 
 export interface TermLists {
-  /** Unambiguous GTA VI references. A single hit is sufficient. */
   context: string[];
-  /**
-   * Single-token prefixes that identify GTA VI when a word starts with them
-   * (subreddit names, hashtags: "gta6unmoderated", "gta6trailer"). Matched within one word only.
-   */
+  // Matches whole words starting with the prefix, e.g. subreddit names like "gta6news".
   contextPrefixes: string[];
-  /** Ambiguous terms (e.g. character first names). Require two distinct hits. */
+  // Ambiguous on their own; two different ones are needed for a match.
   weak: string[];
-  /** Spoiler indicators. Required in addition to a GTA VI reference in `spoilers` mode. */
   spoiler: string[];
 }
 
 export interface Site {
   id: string;
   name: string;
-  /** Registrable domains. Subdomains are matched implicitly. */
   hosts: string[];
-  /** Selectors for content units that are evaluated and blocked as a whole. */
   items: string[];
-  /** Attributes on the item element whose values are included in the evaluated text. */
   attrs: string[];
 }
 
