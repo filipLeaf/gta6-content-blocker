@@ -33,6 +33,7 @@ const ui = {
   nudgeDonate: $<HTMLAnchorElement>('#nudge-donate'),
   donate: $<HTMLAnchorElement>('#donate'),
   repo: $<HTMLAnchorElement>('#repo'),
+  options: $<HTMLAnchorElement>('#options'),
 };
 
 // tab.url is only available for hosts in host_permissions, i.e. supported sites.
@@ -122,6 +123,10 @@ async function main(): Promise<void> {
   ui.donate.href = DONATE_URL;
   ui.nudgeDonate.href = DONATE_URL;
   ui.repo.href = REPO_URL;
+  ui.options.addEventListener('click', (event) => {
+    event.preventDefault();
+    void chrome.runtime.openOptionsPage();
+  });
 
   renderSettings();
   renderStats();

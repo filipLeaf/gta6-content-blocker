@@ -1,1 +1,162 @@
-/* Options page styles. */
+:root {
+  --bg: #140d1f;
+  --panel: #1e1430;
+  --field: #140d1f;
+  --line: #2f2245;
+  --text: #f6f0ff;
+  --muted: #a99bc2;
+  --pink: #ff4fa3;
+  --orange: #ff9a3c;
+  --cyan: #3ee6e6;
+  --ink: #1a0b1f;
+  --grad: linear-gradient(135deg, var(--pink), var(--orange));
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(80% 50% at 50% 0%, rgba(255, 79, 163, 0.14), transparent 70%),
+    var(--bg);
+  color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.page {
+  display: grid;
+  gap: 20px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 16px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.logo {
+  flex: none;
+}
+h1 {
+  margin: 0;
+  font-size: 22px;
+}
+.sub {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+}
+h2 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+.hint {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.add-row {
+  display: flex;
+  gap: 8px;
+}
+.add-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--field);
+  color: var(--text);
+  font: inherit;
+}
+.add-row input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+.add-row input:focus {
+  outline: none;
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255, 79, 163, 0.2);
+}
+.add-row button {
+  padding: 9px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--grad);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.add-row button:hover {
+  filter: brightness(1.08);
+}
+
+.terms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.terms li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 4px 4px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--field);
+  font-size: 14px;
+}
+.terms li button {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+.terms li button:hover {
+  background: var(--line);
+  color: var(--text);
+}
+.terms li.empty {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
