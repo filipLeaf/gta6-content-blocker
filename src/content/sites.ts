@@ -30,6 +30,9 @@ export const SITES: Site[] = [
       // Mobile site (m.youtube.com)
       'ytm-video-with-context-renderer',
       'ytm-compact-video-renderer',
+      // Search results: side panel game card and promoted results
+      'ytd-universal-watch-card-renderer',
+      'ytd-ad-slot-renderer',
     ],
     attrs: [],
   },
