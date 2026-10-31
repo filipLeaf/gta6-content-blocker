@@ -53,6 +53,11 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
   /** Content key captured when the user revealed an item. */
   const revealedKey = new WeakMap<Element, string>();
   const watchedForPlay = new WeakSet<Element>();
+  /**
+   * Content already counted on this page. Prevents re-renders, element recycling and
+   * settings changes from inflating the blocked counter.
+   */
+  const counted = new Set<string>();
 
   // ---------- Item inspection ----------
 
@@ -114,16 +119,16 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
     }
     if (state === 'revealed' && revealedKey.get(el) === contentKey(el)) return;
     block(el);
+    // Items without a link (e.g. comments) fall back to a text prefix as their identity.
+    countBlocked(contentKey(el) || text.slice(0, 200));
   }
 
   function block(el: Element): void {
-    const wasBlocked = el.getAttribute(STATE_ATTR) === 'blocked';
     el.setAttribute(STATE_ATTR, 'blocked');
     el.setAttribute(ACTION_ATTR, settings.action);
     if (settings.action === 'blur') ensureOverlay(el);
     else removeOverlay(el);
     pauseMedia(el);
-    if (!wasBlocked) countBlocked();
   }
 
   function unblock(el: Element): void {
@@ -219,7 +224,9 @@ export function startBlocker(site: Site, initialSettings: Settings): Blocker {
   let pendingCount = 0;
   let counterTimer: ReturnType<typeof setTimeout> | undefined;
 
-  function countBlocked(): void {
+  function countBlocked(key: string): void {
+    if (counted.has(key)) return;
+    counted.add(key);
     pendingCount += 1;
     counterTimer ??= setTimeout(flushCounter, 2000);
   }
