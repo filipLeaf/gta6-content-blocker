@@ -83,7 +83,7 @@ async function main(): Promise<void> {
 
   function renderStats(): void {
     ui.count.textContent = stats.blockedTotal.toLocaleString('en-US');
-    ui.nudge.hidden = stats.nudgeDismissed || stats.blockedTotal < NUDGE_THRESHOLD;
+    ui.nudge.hidden = !DONATE_URL || stats.nudgeDismissed || stats.blockedTotal < NUDGE_THRESHOLD;
   }
 
   function updateSettings(patch: Partial<Settings>): void {
@@ -121,6 +121,7 @@ async function main(): Promise<void> {
   });
 
   ui.donate.href = DONATE_URL;
+  ui.donate.hidden = !DONATE_URL;
   ui.nudgeDonate.href = DONATE_URL;
   ui.repo.href = REPO_URL;
   ui.options.addEventListener('click', (event) => {

@@ -1,7 +1,7 @@
 import type { Settings, Stats, TermLists } from './types.ts';
 
-// TODO: Set the real Buy Me a Coffee URL before release.
-export const DONATE_URL = 'https://buymeacoffee.com/BMC_USER';
+// Donate links are hidden while this is empty.
+export const DONATE_URL = 'https://buymeacoffee.com/leszkusz6';
 export const REPO_URL = 'https://github.com/filipLeaf/gta6-content-blocker';
 
 export const NUDGE_THRESHOLD = 100;
