@@ -42,12 +42,13 @@ export const SITES: Site[] = [
     id: 'reddit',
     name: 'Reddit',
     hosts: ['reddit.com'],
-        items: [
+     items: [
       // New Reddit
       'shreddit-post',
       'shreddit-comment > [slot="comment"]', // body only, replies are checked separately
       // Search results and server-driven post units
       '[data-testid="search-post-with-content-preview"]',
+      '[data-testid="search-post-unit"]',
       '[data-testid="sdui-post-unit"]',
       // Old Reddit
       '.thing.link',
