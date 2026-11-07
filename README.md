@@ -5,79 +5,69 @@
 <h1 align="center">Content Blocker for GTA 6</h1>
 
 <p align="center">
-  A browser extension that blurs or hides GTA 6 content and spoilers on YouTube, X and Reddit.<br>
-  For everyone waiting for the PC version, or anyone who wants to go in blind.
+  Blurs GTA 6 videos, posts and spoilers on YouTube, X and Reddit.
 </p>
 
 <p align="center">
-  <img src="store/screenshots/1-youtube.png" width="720" alt="YouTube search results for GTA 6, all blurred">
+  <a href="https://chromewebstore.google.com/detail/content-blocker-for-gta-6/agncdppnkhgpccobpilhgpdagijacjpb">Chrome Web Store</a> ·
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/content-blocker-for-gta-6/">Firefox Add-ons</a> ·
+  <a href="https://www.youtube.com/watch?v=JkLIOEFMIPc">Video</a>
 </p>
 
-## Install
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=JkLIOEFMIPc">
+    <img src="https://img.youtube.com/vi/JkLIOEFMIPc/maxresdefault.jpg" width="640" alt="Watch the video on YouTube">
+  </a>
+</p>
 
-- **Chrome, Edge, Brave, Opera:** [Chrome Web Store](https://chromewebstore.google.com/detail/content-blocker-for-gta-6/agncdppnkhgpccobpilhgpdagijacjpb)
-- **Firefox:** Firefox Add-ons (in review, coming soon)
+I'm waiting for the PC version, and I didn't want the whole story spoiled by thumbnails and Reddit posts before I get to play it. So I made this.
 
-## Features
+Install it and open YouTube. Anything about GTA 6 shows up blurred: search results, recommendations, Shorts, comments, even ads. Same on X and Reddit. If you want to see one of them, click "Show anyway".
 
-- Blurs GTA 6 videos, Shorts, thumbnails, posts, tweets, comments, search results and ads.
-- Works while you scroll and when you move between pages.
-- **Strict** mode hides everything about the game. **Spoilers only** lets news through and hides endings, missions, leaks and story stuff.
-- Blur or hide completely.
-- "Show anyway" reveals a single post.
-- Turn it off on one site and keep it on the others.
-- Add your own words to block, or words that should never be blocked.
+<p align="center">
+  <img src="store/screenshots/1-youtube.png" width="640" alt="YouTube search results for GTA 6, all blurred">
+</p>
 
-## Supported sites
+## Settings
 
-| Site | What gets blocked |
-|---|---|
-| YouTube | Home feed, search, related videos, Shorts, comments, ads |
-| X (Twitter) | Tweets, quoted tweets, trends |
-| Reddit | Posts, comments, search results (new and old Reddit) |
+Click the extension icon to change how it works:
+
+- **Strict** hides everything about the game. **Spoilers only** lets trailers and news through and only hides story stuff like endings, missions and leaks.
+- **Blur** or **Hide** posts completely.
+- Turn it off on one site, for example if you still want GTA news on Reddit.
+
+On the options page you can add your own words to block (a character or mission name you heard about) or words that should never be blocked.
+
+## How it decides
+
+It checks the text of every video, post and comment as it loads. Something like `gta 6`, `vice city`, `leonida` or a full character name is enough to block it. Common names like `jason` or `lucia` only count when two of them show up together, so a random video about some Jason stays visible.
+
+The keyword lists are in [`src/shared/defaults.ts`](src/shared/defaults.ts) and the per-site selectors are in [`src/content/sites.ts`](src/content/sites.ts).
 
 ## Privacy
 
-No data collection, no analytics, no ads, no network requests. Everything runs locally in your browser.
-The only permissions are `storage` (your settings) and access to the sites above. See [PRIVACY.md](PRIVACY.md).
+It doesn't collect anything and makes no network requests. Your settings stay in your browser. More in [PRIVACY.md](PRIVACY.md).
 
-## How it works
+## Something didn't get blurred?
 
-The content script checks the text of each video, post or comment as it appears on the page.
-A post is blocked when it mentions GTA 6 directly (`gta 6`, `gta vi`, `vice city`, `leonida`, character names...),
-or when it mentions two different ambiguous names together, so a random video about "Jason" stays visible.
-In Spoilers only mode it also needs a spoiler word like `ending`, `leak` or `final mission`.
+YouTube, X and Reddit change their HTML all the time, so this will break now and then. [Open an issue](https://github.com/filipLeaf/gta6-content-blocker/issues) with a link to the page, or send a PR that fixes `sites.ts`. Keyword suggestions are welcome too, especially after the release.
 
-Site selectors live in [`src/content/sites.ts`](src/content/sites.ts) and keywords in [`src/shared/defaults.ts`](src/shared/defaults.ts).
+## Building it yourself
 
-## Development
-
-Requires Node 24.
+You need Node 24.
 
 ```bash
 npm install
-npm run watch       # build to dist/ and rebuild on changes
-npm test            # matcher tests
-npm run typecheck
-npm run zip         # production zip for the stores
+npm run watch   # builds to dist/ and rebuilds on changes
+npm test
 ```
 
-Load the extension from `dist/`:
-
-- Chrome: `chrome://extensions` → Developer mode → Load unpacked
-- Firefox: `about:debugging` → This Firefox → Load Temporary Add-on → `dist/manifest.json`
-
-## Contributing
-
-Sites change their HTML often, so selectors break. If something stops getting blurred, open an issue with the page URL
-or send a PR that updates `sites.ts`. New keywords (missions, characters, places) are welcome too.
+Then load `dist/` as an unpacked extension in `chrome://extensions`, or `dist/manifest.json` in Firefox's `about:debugging`.
 
 ## Support
 
-The extension is free. If it saved your playthrough, you can [buy me a coffee](https://buymeacoffee.com/leszkusz6).
+It's free. If it saved your playthrough, you can [buy me a coffee](https://buymeacoffee.com/leszkusz6).
 
-## License
+---
 
-[MIT](LICENSE)
-
-Not affiliated with Rockstar Games or Take-Two Interactive. GTA and Grand Theft Auto are trademarks of Take-Two Interactive.
+MIT license. Not affiliated with Rockstar Games or Take-Two Interactive.
