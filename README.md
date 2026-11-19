@@ -5,7 +5,7 @@
 <h1 align="center">Content Blocker for GTA 6</h1>
 
 <p align="center">
-  Blurs GTA 6 videos, posts and spoilers on YouTube, X and Reddit.
+  Blurs GTA 6 videos, posts and spoilers on YouTube, X, Reddit, Facebook, Instagram, Twitch and Kick.
 </p>
 
 <p align="center">
@@ -22,7 +22,7 @@
 
 I'm waiting for the PC version, and I didn't want the whole story spoiled by thumbnails and Reddit posts before I get to play it. So I made this.
 
-Install it and open YouTube. Anything about GTA 6 shows up blurred: search results, recommendations, Shorts, comments, even ads. Same on X and Reddit. If you want to see one of them, click "Show anyway".
+Install it and open YouTube. Anything about GTA 6 shows up blurred: search results, recommendations, Shorts, comments, even ads. Same on X, Reddit, Facebook, Instagram, Twitch and Kick. If you want to see one of them, click "Show anyway".
 
 <p align="center">
   <img src="store/screenshots/1-youtube.png" width="640" alt="YouTube search results for GTA 6, all blurred">
@@ -50,7 +50,7 @@ It doesn't collect anything and makes no network requests. Your settings stay in
 
 ## Something didn't get blurred?
 
-YouTube, X and Reddit change their HTML all the time, so this will break now and then. [Open an issue](https://github.com/filipLeaf/gta6-content-blocker/issues) with a link to the page, or send a PR that fixes `sites.ts`. Keyword suggestions are welcome too, especially after the release.
+The supported sites change their HTML all the time, so this will break now and then. [Open an issue](https://github.com/filipLeaf/gta6-content-blocker/issues) with a link to the page, or send a PR that fixes `sites.ts`. Keyword suggestions are welcome too, especially after the release.
 
 ## Building it yourself
 

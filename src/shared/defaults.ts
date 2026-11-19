@@ -27,9 +27,11 @@ export const DEFAULT_TERMS: TermLists = {
     'vice city', 'leonida', 'leonida keys', 'port gellhorn', 'grassrivers', 'mount kalaga',
     'jason duval', 'lucia caminos', 'cal hampton', 'boobie ike', 'dre quan priest',
     'real dimez', 'raul bautista', 'brian heder',
+    'jason and lucia', 'lucia and jason', 'jason duval and lucia', 'bonnie and clyde gta',
+    'rockstar leonida', 'gta 6 trailer', 'gta vi trailer',
   ],
-  contextPrefixes: ['gta6', 'gtavi'],
-  weak: ['jason', 'lucia', 'duval', 'caminos', 'ambrosia', 'kalaga'],
+  contextPrefixes: ['gta6', 'gtavi', 'leonida'],
+  weak: ['jason', 'lucia', 'duval', 'caminos', 'ambrosia', 'kalaga', 'roxy', 'bae bae', 'rockstar', 'rockstar games', 'trailer 3', 'vice'],
   spoiler: [
     'spoiler', 'spoilers', 'spoil', 'spoiled',
     'ending', 'endings', 'secret ending', 'true ending', 'final mission', 'last mission',

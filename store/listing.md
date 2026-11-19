@@ -6,13 +6,13 @@ Content Blocker for GTA 6
 
 ## Short description (summary, max 132 chars)
 
-Blurs or hides GTA 6 videos, posts and spoilers on YouTube, X and Reddit. Free, open source, no tracking.
+Blurs or hides GTA 6 videos, posts and spoilers on YouTube, X, Reddit, Facebook, Instagram, Twitch and Kick. Free, open source, no tracking.
 
 ## Description
 
 Waiting for GTA 6 on PC, or just want to go in blind? This extension keeps GTA 6 out of your feed.
 
-It blurs GTA 6 content on YouTube, X (Twitter) and Reddit before you see it: videos, Shorts, thumbnails, search results, tweets, posts and comments. New content gets blocked as you scroll.
+It blurs GTA 6 content on YouTube, X (Twitter), Reddit, Facebook, Instagram, Twitch and Kick before you see it: videos, Shorts, thumbnails, search results, tweets, posts and comments. New content gets blocked as you scroll.
 
 Features:
 • Strict mode: hides everything about GTA 6 (trailers, news, memes, leaks).
@@ -38,7 +38,7 @@ Firefox: Social & Communication
 ## Chrome privacy tab
 
 Single purpose:
-Blurs or hides GTA 6 related content and spoilers on YouTube, X and Reddit.
+Blurs or hides GTA 6 related content and spoilers on YouTube, X, Reddit, Facebook, Instagram, Twitch and Kick.
 
 Permission justification, storage:
 Saves the user's settings (mode, blur or hide, custom words, disabled sites) and the local "content blocked" counter.

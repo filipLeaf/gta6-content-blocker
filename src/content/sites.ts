@@ -56,6 +56,43 @@ export const SITES: Site[] = [
     ],
     attrs: ['post-title'],
   },
+  {
+    id: 'facebook',
+    name: 'Facebook',
+    hosts: ['facebook.com'],
+    // Posts and comments are role="article"; Facebook's class names are obfuscated.
+    items: ['[role="article"]'],
+    attrs: [],
+  },
+  {
+    id: 'twitch',
+    name: 'Twitch',
+    hosts: ['twitch.tv'],
+    items: [
+      // Directory/stream cards and chat messages
+      'article',
+      '[data-a-target="card-0"]',
+      '.chat-line__message',
+      '[data-a-target="chat-line-message"]',
+    ],
+    attrs: [],
+  },
+  {
+    id: 'kick',
+    name: 'Kick',
+    hosts: ['kick.com'],
+    // Checked against kick.com category pages: stream cards use these test ids.
+    items: ['[data-testid="livestream-results-card"]', '[data-testid="media-card"]'],
+    attrs: [],
+  },
+  {
+    id: 'instagram',
+    name: 'Instagram',
+    hosts: ['instagram.com'],
+    // Feed posts, plus grid tiles on explore/search/profile pages (the tile's alt text is read via attrs).
+    items: ['article', 'a[href^="/p/"]', 'a[href^="/reel/"]'],
+    attrs: ['aria-label'],
+  },
 ];
 
 export function findSite(hostname: string): Site | null {
